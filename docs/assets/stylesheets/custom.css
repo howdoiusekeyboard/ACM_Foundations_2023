@@ -1,0 +1,13 @@
+:root , [data-md-color-scheme="default"]{
+    --md-primary-fg-color: #0092cf;
+    --md-accent-fg-color: #01587d;
+}
+
+h1 {
+    font-weight: bolder !important;
+    color: var(--md-primary-fg-color) !important;
+}
+
+.md-footer-meta{
+    display: none !important;
+}
