@@ -353,12 +353,15 @@ int main() {
 Arrays allow you to store multiple values of the same type under one name.
 
 #### Syntax
+
 ```ruby
 dataType arrayName[arraySize];
 //example
 int numbers[5] = {1, 2, 3, 4, 5};` 
 ```
+
 ![If Else Working](https://cdn.programiz.com/sites/tutorial2program/files/c-arrays.jpg)
+
 ### Access Array Elements
 
 You can access elements of an array by indices.
@@ -385,7 +388,9 @@ int main() {
     printf("Largest element: %d\n", max);
 }
 ```
+
 ### Problem: Array Input/Output
+
 ```ruby
 // Program to take 5 values from the user and store them in an array
 // Print the elements stored in the array
@@ -412,7 +417,9 @@ int main() {
   return 0;
 }
 ```
+
 ### Problem: Calculate average
+
 ```ruby
 #include <stdio.h>
 
