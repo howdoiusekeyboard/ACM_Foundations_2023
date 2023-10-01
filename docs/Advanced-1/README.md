@@ -170,38 +170,82 @@ In the above tree,
 4.  **D,E,F**  and  **G**  have no children, so pop them from queue.
 
 
-Part of a solution for the problem "Evaluate Division":  [https://leetcode.com/problems/evaluate-division/](https://leetcode.com/problems/evaluate-division/)
+### [Question](https://github.com/doocs/leetcode/blob/main/solution/1700-1799/1730.Shortest%20Path%20to%20Get%20Food/README_EN.md) : Shortest path to food
+**Description**
+
+You are starving and you want to eat food as quickly as possible. You want to find the shortest path to arrive at any food cell.
+
+You are given an  `m x n`  character matrix,  `grid`, of these different types of cells:
+
+-   `'*'`  is your location. There is  **exactly one** `'*'`  cell.
+-   `'#'`  is a food cell. There may be  **multiple**  food cells.
+-   `'O'`  is free space, and you can travel through these cells.
+-   `'X'`  is an obstacle, and you cannot travel through these cells.
+
+You can travel to any adjacent cell north, east, south, or west of your current location if there is not an obstacle.
+
+Return  _the  **length**  of the shortest path for you to reach  **any**  food cell_. If there is no path for you to reach food, return  `-1`.
+
+**Example 1:**
+
+[![](https://camo.githubusercontent.com/56a064b341f99868d79208264b3742d59cc23fe26178d12a1a9fd80d2e5532c6/68747470733a2f2f666173746c792e6a7364656c6976722e6e65742f67682f646f6f63732f6c656574636f6465406d61696e2f736f6c7574696f6e2f313730302d313739392f313733302e53686f727465737425323050617468253230746f253230476574253230466f6f642f696d616765732f696d67312e6a7067)](https://camo.githubusercontent.com/56a064b341f99868d79208264b3742d59cc23fe26178d12a1a9fd80d2e5532c6/68747470733a2f2f666173746c792e6a7364656c6976722e6e65742f67682f646f6f63732f6c656574636f6465406d61696e2f736f6c7574696f6e2f313730302d313739392f313733302e53686f727465737425323050617468253230746f253230476574253230466f6f642f696d616765732f696d67312e6a7067)
+
+**Input:** grid = [["X","X","X","X","X","X"],["X","*","O","O","O","X"],["X","O","O","#","O","X"],["X","X","X","X","X","X"]]
+**Output:** 3
+**Explanation:** It takes 3 steps to reach the food.
+
+**Example 2:**
+
+[![](https://camo.githubusercontent.com/25f96060c8da5aba132e82707f60efd19a4f3b5201fd3648f4e011e26e3127a3/68747470733a2f2f666173746c792e6a7364656c6976722e6e65742f67682f646f6f63732f6c656574636f6465406d61696e2f736f6c7574696f6e2f313730302d313739392f313733302e53686f727465737425323050617468253230746f253230476574253230466f6f642f696d616765732f696d67322e6a7067)](https://camo.githubusercontent.com/25f96060c8da5aba132e82707f60efd19a4f3b5201fd3648f4e011e26e3127a3/68747470733a2f2f666173746c792e6a7364656c6976722e6e65742f67682f646f6f63732f6c656574636f6465406d61696e2f736f6c7574696f6e2f313730302d313739392f313733302e53686f727465737425323050617468253230746f253230476574253230466f6f642f696d616765732f696d67322e6a7067)
+
+**Input:** grid = [["X","X","X","X","X"],["X","*","X","O","X"],["X","O","X","#","X"],["X","X","X","X","X"]]
+**Output:** -1
+**Explanation:** It is not possible to reach the food.
+
+**Example 3:**
+
+[![](https://camo.githubusercontent.com/94a7554ef5e2a7f877d39949e24c238e0c0e4be33714d2b39289df3a71176793/68747470733a2f2f666173746c792e6a7364656c6976722e6e65742f67682f646f6f63732f6c656574636f6465406d61696e2f736f6c7574696f6e2f313730302d313739392f313733302e53686f727465737425323050617468253230746f253230476574253230466f6f642f696d616765732f696d67332e6a7067)](https://camo.githubusercontent.com/94a7554ef5e2a7f877d39949e24c238e0c0e4be33714d2b39289df3a71176793/68747470733a2f2f666173746c792e6a7364656c6976722e6e65742f67682f646f6f63732f6c656574636f6465406d61696e2f736f6c7574696f6e2f313730302d313739392f313733302e53686f727465737425323050617468253230746f253230476574253230466f6f642f696d616765732f696d67332e6a7067)
+
+**Input:** grid = [["X","X","X","X","X","X","X","X"],["X","*","O","X","O","#","O","X"],["X","O","O","X","O","O","X","X"],["X","O","O","O","O","#","O","X"],["X","X","X","X","X","X","X","X"]]
+**Output:** 6
+**Explanation:** There can be multiple food cells. It only takes 6 steps to reach the bottom food.
+
+**Constraints:**
+
+-   `m == grid.length`
+-   `n == grid[i].length`
+-   `1 <= m, n <= 200`
+-   `grid[row][col]`  is  `'*'`,  `'X'`,  `'O'`, or  `'#'`.
+-   The  `grid`  contains  **exactly one**  `'*'`.
+
+**Solution**
+
+```python
+class Solution:
+    def getFood(self, grid: List[List[str]]) -> int:
+        m, n = len(grid), len(grid[0])
+        i, j = next((i, j) for i in range(m) for j in range(n) if grid[i][j] == '*')
+        q = deque([(i, j)])
+        dirs = (-1, 0, 1, 0, -1)
+        ans = 0
+        while q:
+            ans += 1
+            for _ in range(len(q)):
+                i, j = q.popleft()
+                for a, b in pairwise(dirs):
+                    x, y = i + a, j + b
+                    if 0 <= x < m and 0 <= y < n:
+                        if grid[x][y] == '#':
+                            return ans
+                        if grid[x][y] == 'O':
+                            grid[x][y] = 'X'
+                            q.append((x, y))
+        return -1
 
 ```
-double bfs(unordered_map<string, vector<ip>>& adj, vector<string>& query) {
-    unordered_set<string> visited;
-    string start = query[0];
-    string end = query[1];
-    queue<ip> q;
-    q.push({start, 1.0});
-    visited.insert(start);
-    while (!q.empty()) {
-        int sz = q.size();
-        for (int i = 0; i < sz; i++) {
-            auto [node, cost] = q.front(); q.pop();
-            if (!adj.count(node)) continue;
-            if (node == end) return cost;
-            for (auto& a : adj[node]) {
-                if (!visited.count(a.first)) {
-                    q.push({a.first, cost * a.second});
-                    visited.insert(node);
-                }
-            }
-        }
-    }
-    return -1.0;
-}
-
-```
-
+**Notes**:
 ![image](https://assets.leetcode.com/users/images/459f610d-8108-4803-8188-e2312a0a70cd_1648525376.9628026.png)  
 Visualization of BFS with first 3 layers. A - root node/first lavel, C/M/B/O - second layer, D/N/L/J - third layer.  
-**Notes**:
 
 1.  Algorithm uses queue for implementation.
 2.  It checks whether a vertex has been explored before enqueueing the vertex.
@@ -249,32 +293,77 @@ We are going to get the help of  **stack**, in order to traverse the tree/graph 
 
 ![image](https://assets.leetcode.com/users/images/2132f541-ed91-42a3-a6ba-e33052cb4488_1613721512.2723231.png)
 
+### [Question](https://leetcode.com/problems/keys-and-rooms/): Keys and Rooms
+**Description**
+There are  `n`  rooms labeled from  `0`  to  `n - 1` and all the rooms are locked except for room  `0`. Your goal is to visit all the rooms. However, you cannot enter a locked room without having its key.
+
+When you visit a room, you may find a set of  **distinct keys**  in it. Each key has a number on it, denoting which room it unlocks, and you can take all of them with you to unlock the other rooms.
+
+Given an array  `rooms`  where  `rooms[i]`  is the set of keys that you can obtain if you visited room  `i`, return  `true`  _if you can visit  **all**  the rooms, or_  `false`  _otherwise_.
+
+**Example 1:**
+
+**Input:** rooms = [[1],[2],[3],[]]
+**Output:** true
+**Explanation:** 
+We visit room 0 and pick up key 1.
+We then visit room 1 and pick up key 2.
+We then visit room 2 and pick up key 3.
+We then visit room 3.
+Since we were able to visit every room, we return true.
+
+**Example 2:**
+
+**Input:** rooms = [[1,3],[3,0,1],[2],[0]]
+**Output:** false
+**Explanation:** We can not enter room number 2 since the only key that unlocks it is in that room.
+
+**Constraints:**
+
+-   `n == rooms.length`
+-   `2 <= n <= 1000`
+-   `0 <= rooms[i].length <= 1000`
+-   `1 <= sum(rooms[i].length) <= 3000`
+-   `0 <= rooms[i][j] < n`
+-   All the values of  `rooms[i]`  are  **unique**.
 In above example,
 
 1.  First we are visiting Node  **1**, add them to stack, explore its children and add its right child  **3**  first and then left child  **2**.
 2.  Now the stack has nodes  **2**  and  **3**. Explore  **2**’s children and add its right child  **5**  and then its left child  **4**  to stack. And pop  **2**.
 3.  Further pop nodes from stack and add its children until stack becomes empty.
 
-```
-void dfs(unordered_map<int, vector<int>>& graph, int node, unordered_set<int>& visited) {
-    visited.insert(node);
-    for (auto& n : graph[node]) {
-        if (!visited.count(n)) {
-            dfs(graph, n, visited);
-        }
-    }
-}
-// Find connected components.
-int count = 0;
-for (int i = 0; i < n; i++) {
-    if (!visited.count(i)) {
-		count++;
-        dfs(graph, i, visited);
-    }
-}
+**Solution**
+-   The basic idea of the code is to keep a record of all the keys you have already obtained.
+-   You can obtain all the keys in the rooms that you can go to
+-   And if the count of all the keys you can obtain is equal to the number of rooms, your answer is True.
 
-```
+**Code**
 
+```python
+class Solution:
+    def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
+        
+        res = set() #set of keys that we can obtain
+        visited = set() #set of rooms we have visited
+
+        n = len(rooms)
+
+        def solve(pos):
+            if pos in visited:
+                return
+
+            visited.add(pos)
+            temp = rooms[pos]
+            for i in temp:
+                res.add(i)
+                solve(i)
+
+        solve(0)
+        if 0 in res:
+            res.remove(0)
+
+        return len(res) == n - 1
+```
 **Notes**:
 
 1.  Algorithm usually uses recursion implementation.
@@ -386,6 +475,61 @@ All the vertices have been added to the MstSet!
 And finally, we have our Minimum Spanning Tree.  
 ![image](https://assets.leetcode.com/users/images/2c3826ff-3b77-44ea-867b-14a178321d2d_1616968241.1259313.png)
 
+### [Question](https://github.com/azl397985856/leetcode/blob/master/problems/1168.optimize-water-distribution-in-a-village-en.md): Optimized water distribution in a village
+**Description**
+
+There are n houses in a village. We want to supply water for all the houses by building wells and laying pipes.
+
+For each house i, we can either build a well inside it directly with cost wells[i], or pipe in water from another well to it. The costs to lay pipes between houses are given by the array pipes, where each pipes[i] = [house1, house2, cost] represents the cost to connect house1 and house2 together using a pipe. Connections are bidirectional.
+
+Find the minimum total cost to supply water to all houses.
+
+**Example 1:**
+
+**Input:** n = 3, wells = [1,2,2], pipes = [[1,2,1],[2,3,1]]
+**Output:** 3
+**Explanation:** 
+The image shows the costs of connecting houses using pipes.
+The best strategy is to build a well in the first house with cost 1 and connect the other houses to it with cost 2 so the total cost is 3.
+
+**Constraints:**
+
+ - 1 <= n <= 10000 
+ - wells.length == n 
+ - 0 <= wells[i] <= 10^5 
+ - 1 <= pipes.length <= 10000 
+ - 1 <= pipes[i][0], pipes[i][1] <= n 
+ - 0 <= pipes[i][2] <= 10^5 
+ - pipes[i][0] != pipes[i][1] 
+
+example 1 pic:
+
+[![example 1](https://camo.githubusercontent.com/8370f44739d5a49b9e660395388706b734e13a23b42bd792f893b1930bfa2fcc/68747470733a2f2f702e697069632e7669702f7838626230342e6a7067)](https://camo.githubusercontent.com/8370f44739d5a49b9e660395388706b734e13a23b42bd792f893b1930bfa2fcc/68747470733a2f2f702e697069632e7669702f7838626230342e6a7067)
+
+**Code**
+
+```python
+import heapq
+import collections
+def minCostToSupplyWater(n, wells, pipes):
+    c = collections.defaultdict(list)
+    for i, cost in enumerate(wells, 1):
+        c[0].append((cost, i))
+        c[i].append((cost, 0))
+    for i, j, cost in pipes:
+        c[i].append((cost, j))
+        c[j].append((cost, i))
+    
+    cnt, ans, visited, heap = 1, 0, [0] * (n+1), c[0]
+    visited[0] = 1
+    heapq.heapify(heap)
+    while heap:
+        d, j = heapq.heappop(heap)
+        if not visited[j]:
+            visited[j], cnt, ans = 1, cnt+1, ans+d
+            for record in c[j]: heapq.heappush(heap, record)    
+    return ans
+```
 ### Dijkstra's algorithm:
 Is an algorithm for finding the shortest paths between nodes in a graph, which may represent, for example, road networks.
 
@@ -519,39 +663,67 @@ Here is the truth. Djikstra's algorithm doesn't work for negative edge weights.
 Let's think about the graphs involving negative weights cycles. If there is a negative weight cycle like the C-A-B-C below, we can keep moving in cycles and each iteration of the cycle will decrease the distance, so negative weight cycle is a big NO for Djikstra.  
 ![image](https://assets.leetcode.com/users/images/0eefe88c-4e66-4ad0-9032-0e20ca1fe2de_1612974143.5970755.png)  
 It's intuitive to understand that Djikstra doesn't work for negative cycles but not very intuitive to understand why it doesn't work for negative edges with no negative cycles.
-```
-class Solution {
-public:
-    int networkDelayTime(vector<vector<int>>& times, int n, int k) {
-        using ip = pair<int, int>;
-        vector<vector<ip>> adj(n + 1);
-        for (auto& t : times) adj[t[0]].push_back({t[1], t[2]});
-        priority_queue<ip, vector<ip>, greater<ip>> pq;
-        vector<int> dist(n + 1, INT_MAX);
-        vector<bool> visited(n + 1, false);
-        pq.push({0, k});
-        dist[k] = 0;
-        while (!pq.empty()) {
-            auto [n_cost, node] = pq.top(); pq.pop();
-            visited[node] = true;
-            if (dist[node] < n_cost) continue;  // Optimization: skip node if we already find better option.
-            for (auto& [next, cost] : adj[node]) {
-                if (visited[next] == true) continue; // Optimization: do not re-visit nodes.
-                if (dist[next] > dist[node] + cost) {
-                    dist[next] = dist[node] + cost;
-                    pq.push({dist[next], next});
-                }
-            }
-        }
-        int res = 0;
-        for_each(dist.begin() + 1, dist.end(), [&](int d) {
-            res = max(res, d);
-        });
-        return res == INT_MAX ? -1 : res;
-    }
-};
 
+### [Question](https://leetcode.com/problems/network-delay-time/) : Network Delay Time
+
+You are given a network of  `n`  nodes, labeled from  `1`  to  `n`. You are also given  `times`, a list of travel times as directed edges  `times[i] = (ui, vi, wi)`, where  `ui`  is the source node,  `vi`  is the target node, and  `wi`  is the time it takes for a signal to travel from source to target.
+
+We will send a signal from a given node  `k`. Return  _the  **minimum**  time it takes for all the_  `n`  _nodes to receive the signal_. If it is impossible for all the  `n`  nodes to receive the signal, return  `-1`.
+
+**Example 1:**
+
+![](https://assets.leetcode.com/uploads/2019/05/23/931_example_1.png)
+
+**Input:** times = [[2,1,1],[2,3,1],[3,4,1]], n = 4, k = 2
+**Output:** 2
+
+**Example 2:**
+
+**Input:** times = [[1,2,1]], n = 2, k = 1
+**Output:** 1
+
+**Example 3:**
+
+**Input:** times = [[1,2,1]], n = 2, k = 2
+**Output:** -1
+
+**Constraints:**
+
+-   `1 <= k <= n <= 100`
+-   `1 <= times.length <= 6000`
+-   `times[i].length == 3`
+-   `1 <= ui, vi <= n`
+-   `ui != vi`
+-   `0 <= wi <= 100`
+-   All the pairs  `(ui, vi)`  are  **unique**. (i.e., no multiple edges.)
+
+**Solution:**
+```python
+class Solution:
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+        #create adjacency list
+        adjList = {i:[] for i in range(1, n+1)} #node: [neighbour, weight]
+        for src, dest, weight in times:
+            adjList[src].append([dest, weight])
+        #create minHeap
+        minHeap = []
+        minHeap.append([0, k])
+        heapq.heapify(minHeap)
+        #dikjstra 
+        dist = [float("inf")] * (n+1)
+        dist[k] = 0
+        while minHeap:
+            dis, node = heapq.heappop(minHeap)
+            for it in adjList[node]:
+                edgeWeight = it[1]
+                edgeNode = it[0]
+                if (dis+edgeWeight) < dist[edgeNode]:
+                    dist[edgeNode] = dis+edgeWeight
+                    heapq.heappush(minHeap, [dist[edgeNode], edgeNode])
+        #result
+        return max(dist[1:]) if max(dist[1:]) != float("inf") else -1 
 ```
+**Description**
 
 ![image](https://assets.leetcode.com/users/images/728062f8-be3e-407c-a010-64da141864ed_1648524882.3623493.png)  
 Visualization of traversing graph using Dijkstra algorithm and distance array. The priority queue itself is not shown there, as well as redundant nodes that we might have in priority queue. Green node - explored/current node, Yellow - node in the priority queue.  
