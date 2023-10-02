@@ -191,7 +191,9 @@ Return  _the  **length**  of the shortest path for you to reach  **any**  food c
 [![](https://camo.githubusercontent.com/56a064b341f99868d79208264b3742d59cc23fe26178d12a1a9fd80d2e5532c6/68747470733a2f2f666173746c792e6a7364656c6976722e6e65742f67682f646f6f63732f6c656574636f6465406d61696e2f736f6c7574696f6e2f313730302d313739392f313733302e53686f727465737425323050617468253230746f253230476574253230466f6f642f696d616765732f696d67312e6a7067)](https://camo.githubusercontent.com/56a064b341f99868d79208264b3742d59cc23fe26178d12a1a9fd80d2e5532c6/68747470733a2f2f666173746c792e6a7364656c6976722e6e65742f67682f646f6f63732f6c656574636f6465406d61696e2f736f6c7574696f6e2f313730302d313739392f313733302e53686f727465737425323050617468253230746f253230476574253230466f6f642f696d616765732f696d67312e6a7067)
 
 **Input:** grid = [["X","X","X","X","X","X"],["X","*","O","O","O","X"],["X","O","O","#","O","X"],["X","X","X","X","X","X"]]
+
 **Output:** 3
+
 **Explanation:** It takes 3 steps to reach the food.
 
 **Example 2:**
@@ -199,7 +201,9 @@ Return  _the  **length**  of the shortest path for you to reach  **any**  food c
 [![](https://camo.githubusercontent.com/25f96060c8da5aba132e82707f60efd19a4f3b5201fd3648f4e011e26e3127a3/68747470733a2f2f666173746c792e6a7364656c6976722e6e65742f67682f646f6f63732f6c656574636f6465406d61696e2f736f6c7574696f6e2f313730302d313739392f313733302e53686f727465737425323050617468253230746f253230476574253230466f6f642f696d616765732f696d67322e6a7067)](https://camo.githubusercontent.com/25f96060c8da5aba132e82707f60efd19a4f3b5201fd3648f4e011e26e3127a3/68747470733a2f2f666173746c792e6a7364656c6976722e6e65742f67682f646f6f63732f6c656574636f6465406d61696e2f736f6c7574696f6e2f313730302d313739392f313733302e53686f727465737425323050617468253230746f253230476574253230466f6f642f696d616765732f696d67322e6a7067)
 
 **Input:** grid = [["X","X","X","X","X"],["X","*","X","O","X"],["X","O","X","#","X"],["X","X","X","X","X"]]
+
 **Output:** -1
+
 **Explanation:** It is not possible to reach the food.
 
 **Example 3:**
@@ -207,7 +211,9 @@ Return  _the  **length**  of the shortest path for you to reach  **any**  food c
 [![](https://camo.githubusercontent.com/94a7554ef5e2a7f877d39949e24c238e0c0e4be33714d2b39289df3a71176793/68747470733a2f2f666173746c792e6a7364656c6976722e6e65742f67682f646f6f63732f6c656574636f6465406d61696e2f736f6c7574696f6e2f313730302d313739392f313733302e53686f727465737425323050617468253230746f253230476574253230466f6f642f696d616765732f696d67332e6a7067)](https://camo.githubusercontent.com/94a7554ef5e2a7f877d39949e24c238e0c0e4be33714d2b39289df3a71176793/68747470733a2f2f666173746c792e6a7364656c6976722e6e65742f67682f646f6f63732f6c656574636f6465406d61696e2f736f6c7574696f6e2f313730302d313739392f313733302e53686f727465737425323050617468253230746f253230476574253230466f6f642f696d616765732f696d67332e6a7067)
 
 **Input:** grid = [["X","X","X","X","X","X","X","X"],["X","*","O","X","O","#","O","X"],["X","O","O","X","O","O","X","X"],["X","O","O","O","O","#","O","X"],["X","X","X","X","X","X","X","X"]]
+
 **Output:** 6
+
 **Explanation:** There can be multiple food cells. It only takes 6 steps to reach the bottom food.
 
 **Constraints:**
@@ -221,26 +227,37 @@ Return  _the  **length**  of the shortest path for you to reach  **any**  food c
 **Solution**
 
 ```python
+from collections import deque
 class Solution:
-    def getFood(self, grid: List[List[str]]) -> int:
-        m, n = len(grid), len(grid[0])
-        i, j = next((i, j) for i in range(m) for j in range(n) if grid[i][j] == '*')
-        q = deque([(i, j)])
-        dirs = (-1, 0, 1, 0, -1)
-        ans = 0
-        while q:
-            ans += 1
-            for _ in range(len(q)):
+    def getFood(self, grid):
+        m, n = len(grid), len(grid[0]) #Finding the number of rows and comuns
+        for p in range(m): #Finding the root, from where the BFS will start, which is where the person is standing now
+            for q in range(n):
+                if grid[p][q] == '*':
+                    i, j = p, q
+                    break
+        q = deque([(i, j)]) #Creating the Queue for the BFS
+        directions = [(-1, 0), (1, 0), (0, 1), (0, -1)] # For moving up, down, right and left
+        steps = 0 #For storing the number of steps
+        while q: #Doing BFS till Queue is empty
+            steps += 1 #Adding one step for every level we go into the bfs
+            for temp in range(len(q)): #This is to visit all the nodes in the current level of the tree
                 i, j = q.popleft()
-                for a, b in pairwise(dirs):
+                for a, b in directions: #Exploring every direction
                     x, y = i + a, j + b
                     if 0 <= x < m and 0 <= y < n:
-                        if grid[x][y] == '#':
-                            return ans
-                        if grid[x][y] == 'O':
-                            grid[x][y] = 'X'
+                        if grid[x][y] == '#': #If food found its a success and we can leave
+                            return steps
+                        if grid[x][y] == 'O': #If an empty area found we move there and mark it as a X, to show that it is visited
                             q.append((x, y))
+                            grid[x][y] = 'X'  # To mark as visited
+                        if grid[x][y] == 'X': #If the block is unreachable or visited we don't explore again
+                            continue
         return -1
+        
+Soln = Solution()
+print(Soln.getFood([["X","X","X","X","X","X","X","X"],["X","*","O","X","O","#","O","X"],["X","O","O","X","O","O","X","X"],["X","O","O","O","O","#","O","X"],["X","X","X","X","X","X","X","X"]]))
+
 
 ```
 **Notes**:
@@ -303,20 +320,24 @@ Given an array  `rooms`  where  `rooms[i]`  is the set of keys that you can obta
 
 **Example 1:**
 
-**Input:** rooms = [[1],[2],[3],[]]
-**Output:** true
-**Explanation:** 
-We visit room 0 and pick up key 1.
-We then visit room 1 and pick up key 2.
-We then visit room 2 and pick up key 3.
-We then visit room 3.
-Since we were able to visit every room, we return true.
+**Input:** rooms = [[1,3],[3,0,1],[2],[0]]
+
+**Output:** false
+
+**Explanation:** We can not enter room number 2 since the only key that unlocks it is in that room.
 
 **Example 2:**
 
-**Input:** rooms = [[1,3],[3,0,1],[2],[0]]
-**Output:** false
-**Explanation:** We can not enter room number 2 since the only key that unlocks it is in that room.
+**Input:** rooms = [[1,3],[3,0,1],[0],[2]]
+
+**Output:** true
+
+**Explanation:** 
+We visit room 0 and pick up key 1.
+We then visit room 1 and pick up key 3.
+We then visit room 3 and pick up key 2.
+We then visit room 3 and pick up key 0.
+Since we were able to visit every room, we return true.
 
 **Constraints:**
 
@@ -326,6 +347,7 @@ Since we were able to visit every room, we return true.
 -   `1 <= sum(rooms[i].length) <= 3000`
 -   `0 <= rooms[i][j] < n`
 -   All the values of  `rooms[i]`  are  **unique**.
+
 In above example,
 
 1.  First we are visiting Node  **1**, add them to stack, explore its children and add its right child  **3**  first and then left child  **2**.
@@ -340,29 +362,29 @@ In above example,
 **Code**
 
 ```python
+from collections import deque
 class Solution:
-    def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
+    def canVisitAllRooms(self, rooms):
+        visited=[False]*len(rooms) #The visited array for the DFS to make sure we don't explore visited nodes again
+        stack=deque() #The stack for carrying the BFS
+        stack.append(0) #We know the root node is 0 since it is marked in the question, so we add it
+
+        while(len(stack)>0): #DFS till stack is empty
+            key=stack.pop()
+            visited[key]=True #Marking node as visited, it can be done while adding into stack as well, like in the last question
+            for j in rooms[key]: #Exploring all options, the keys found in the new room
+                if(visited[j]==False):
+                    stack.append(j)
+
+
+        for i in visited:#If all rooms are visited the result is True, else False
+            if(i==False):
+                return False
+        return True                    
         
-        res = set() #set of keys that we can obtain
-        visited = set() #set of rooms we have visited
-
-        n = len(rooms)
-
-        def solve(pos):
-            if pos in visited:
-                return
-
-            visited.add(pos)
-            temp = rooms[pos]
-            for i in temp:
-                res.add(i)
-                solve(i)
-
-        solve(0)
-        if 0 in res:
-            res.remove(0)
-
-        return len(res) == n - 1
+        
+Soln = Solution()
+print(Soln.canVisitAllRooms([[1],[2],[3],[]]))
 ```
 **Notes**:
 
@@ -487,7 +509,9 @@ Find the minimum total cost to supply water to all houses.
 **Example 1:**
 
 **Input:** n = 3, wells = [1,2,2], pipes = [[1,2,1],[2,3,1]]
+
 **Output:** 3
+
 **Explanation:** 
 The image shows the costs of connecting houses using pipes.
 The best strategy is to build a well in the first house with cost 1 and connect the other houses to it with cost 2 so the total cost is 3.
@@ -509,26 +533,35 @@ example 1 pic:
 **Code**
 
 ```python
-import heapq
+from collections import deque
 import collections
-def minCostToSupplyWater(n, wells, pipes):
-    c = collections.defaultdict(list)
-    for i, cost in enumerate(wells, 1):
-        c[0].append((cost, i))
-        c[i].append((cost, 0))
-    for i, j, cost in pipes:
-        c[i].append((cost, j))
-        c[j].append((cost, i))
-    
-    cnt, ans, visited, heap = 1, 0, [0] * (n+1), c[0]
-    visited[0] = 1
-    heapq.heapify(heap)
-    while heap:
-        d, j = heapq.heappop(heap)
-        if not visited[j]:
-            visited[j], cnt, ans = 1, cnt+1, ans+d
-            for record in c[j]: heapq.heappush(heap, record)    
-    return ans
+import heapq
+class Solution:
+    def minCostToSupplyWater(self, n, wells, pipes):
+        c = collections.defaultdict(list) #First step is creating the adjacency list to represent the graph
+        
+        #The question as of now is not in MST since nodes value cost as well, this can be converted to MST by adding a base node
+        #This base node will have edge with every node with a weight equivalent to the cost of that node, and will also serve as the root node
+        for i, cost in enumerate(wells, 1): #Adding all the edges to the base node, cost equal to cost of well
+            c[0].append((cost, i))
+            c[i].append((cost, 0))
+        for i, j, cost in pipes: #Adding all other edges as adjacency list, cost first so it can be used in a heap
+            c[i].append((cost, j))
+            c[j].append((cost, i))
+        
+        ans, visited, heap = 0, [0] * (n+1), c[0] #Answer is the final minimum cost, visited is the visited array, heap is to carry the Prim's
+        visited[0] = 1 #Starting with the root, our case the node we added, node 0
+        heapq.heapify(heap)
+        while heap:
+            d, j = heapq.heappop(heap)
+            if not visited[j]: #Only visiting unvisited nodes
+                visited[j], cnt, ans = 1, cnt+1, ans+d #For adding to our heap, each edge adds to the cost of the spanning tree 
+                for record in c[j]: heapq.heappush(heap, record) #Adding the new node to our heap    
+        return ans                  
+        
+        
+Soln = Solution()
+print(Soln.minCostToSupplyWater(3, [1,2,2], [[1,2,1],[2,3,1]]))
 ```
 ### Dijkstra's algorithm:
 Is an algorithm for finding the shortest paths between nodes in a graph, which may represent, for example, road networks.
@@ -675,16 +708,19 @@ We will send a signal from a given node  `k`. Return  _the  **minimum**  time it
 ![](https://assets.leetcode.com/uploads/2019/05/23/931_example_1.png)
 
 **Input:** times = [[2,1,1],[2,3,1],[3,4,1]], n = 4, k = 2
+
 **Output:** 2
 
 **Example 2:**
 
 **Input:** times = [[1,2,1]], n = 2, k = 1
+
 **Output:** 1
 
 **Example 3:**
 
 **Input:** times = [[1,2,1]], n = 2, k = 2
+
 **Output:** -1
 
 **Constraints:**
@@ -699,29 +735,33 @@ We will send a signal from a given node  `k`. Return  _the  **minimum**  time it
 
 **Solution:**
 ```python
+import heapq
 class Solution:
-    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+    def networkDelayTime(self, times, n, k):
         #create adjacency list
-        adjList = {i:[] for i in range(1, n+1)} #node: [neighbour, weight]
+        adjList = {i:[] for i in range(1, n+1)} #Format of the adjacency list node: [neighbour, weight]
         for src, dest, weight in times:
             adjList[src].append([dest, weight])
         #create minHeap
         minHeap = []
-        minHeap.append([0, k])
+        minHeap.append([0, k]) #Minheap is of the structure distance, node; Initial is 0,k since k is starting node as written in question and its at 0 distance from itself
         heapq.heapify(minHeap)
         #dikjstra 
-        dist = [float("inf")] * (n+1)
-        dist[k] = 0
-        while minHeap:
+        dist = [float("inf")] * (n+1) #Initial distance to all nodes is infinite
+        dist[k] = 0 #Distance to the starting node set to zero since it is the starting node itself
+        while minHeap: #Minheap to implement the jijkstras
             dis, node = heapq.heappop(minHeap)
             for it in adjList[node]:
                 edgeWeight = it[1]
                 edgeNode = it[0]
-                if (dis+edgeWeight) < dist[edgeNode]:
+                if (dis+edgeWeight) < dist[edgeNode]: #Applying the formula to update the distance array
                     dist[edgeNode] = dis+edgeWeight
-                    heapq.heappush(minHeap, [dist[edgeNode], edgeNode])
+                    heapq.heappush(minHeap, [dist[edgeNode], edgeNode]) #Since the node is visited now, we add it to our heap
         #result
-        return max(dist[1:]) if max(dist[1:]) != float("inf") else -1 
+        return max(dist[1:]) if max(dist[1:]) != float("inf") else -1 #Max of all the latency, else -1 if not possible
+        
+Soln = Solution()
+print(Soln.networkDelayTime([[2,1,1],[2,3,1],[3,4,1]], 4, 2))
 ```
 **Description**
 
