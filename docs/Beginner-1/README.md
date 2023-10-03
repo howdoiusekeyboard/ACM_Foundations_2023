@@ -61,7 +61,7 @@ Create a program that calculates the area of a rectangle given its length and wi
 ```c
 #include <stdio.h>
 
-void main() {
+int main() {
     int length, width;
     printf("Enter length: ");
     scanf("%d", &length);
@@ -127,7 +127,7 @@ while (testExpression) {
 ```ruby
 #include <stdio.h>
 
-void main() {
+int main() {
     int n, i;
     // Input the value of n
     printf("Enter the value of n: ");
@@ -162,7 +162,7 @@ while (testExpression);
 ### Problem: Add numbers entered by user
 ```ruby
 #include <stdio.h>
-void main() {
+int main() {
   double number, sum = 0;
 
   // the body of the loop is executed at least once
@@ -262,7 +262,7 @@ if (condition) {
 ```c
 #include <stdio.h>
 
-void main() {
+int main() {
     int year;
     printf("Enter a year: ");
     scanf("%d", &year);
