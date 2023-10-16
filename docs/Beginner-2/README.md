@@ -46,7 +46,7 @@ ch = 'l';
 
 C is a strongly typed language. This means that the variable type cannot be changed once it is declared. For example:
 
-```ruby
+```c
 int number = 5;     // integer variable
 number = 5.5;       // error, can't assign float to int
 double number;      // error, can't redefine the data type 
@@ -352,10 +352,10 @@ Suppose you declared an array mark as above. The first element is mark[0], the s
 ## Past Year Questions 🤩🤩🤩
 
 
- 1. ### Write a C Program to input size of the array, and then after passes the user input array to a function which replaces each element with its reverse. Print the array in main before and after the function call.
+ 1. ### Write a C Program to input size of the array, and then replace each element of the user input array with its reverse. Print the array.
 
 ```c
-#Solution
+//Solution
 #include <stdio.h>
 
 void main() {
@@ -406,7 +406,7 @@ void main() {
  ```
  
 2.  **WAP to sort an array A[] consisting of only 1s, 2s, and 3s. the following task needs to be done**
-- **A function that sorts the given array. The functions should put all 1s first, then all 2s and all 3s in last.**
+- **The program should sort the given array and put all 1s first, then all 2s and all 3s in last.**
 - **Print the array elements after sorting.**
 
 **Test case 1:**
@@ -419,7 +419,7 @@ void main() {
 
 
 ```c
-#Solution
+//Solution
 #include <stdio.h>
 
 int main() {
