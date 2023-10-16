@@ -25,7 +25,7 @@ Welcome to the world of C programming! In this guide, we'll cover essential conc
    - [Nested if-else](#explanation-problem)
 4. [Arrays](#arrays-in-c)
    - [What are Arrays?](#what-are-arrays)
-  5. [Past Year Questions](#Past-Year-Questions)
+5. [Past Year Questions](#Past-Year-Questions)
 
 ## Variables in C
 
@@ -74,7 +74,7 @@ Write a program to find the factorial of a number.
 ```c
 #include <stdio.h>
 
-int main() {
+int main() {                        // return type int
     int number, factorial = 1;
     
     printf("Enter a number: ");   //Prints text to console
@@ -107,7 +107,7 @@ while (testExpression) {
 ```c
 #include <stdio.h>
 
-void main() {
+void main() {                             //return type void
     int n, i;
     // Input the value of n
     printf("Enter the value of n: ");
