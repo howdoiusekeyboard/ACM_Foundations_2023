@@ -15,7 +15,9 @@ The Beginner sessions will be taught in *C* and prepare the audience to begin th
 
 | Session | Topic |
 | :-----: |:-------------:|
-| 1 | [**Programming Basics using C**](./Beginner-1) |
+| 1 | [**Programming Basics using C - 1**](./Beginner-1) |
+| 2 | [**Programming Basics using C - 2**](./Beginner-2) |
+
 
 ### Advanced
 
