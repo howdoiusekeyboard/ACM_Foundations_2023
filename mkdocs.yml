@@ -32,7 +32,8 @@ theme:
 nav:
     - Home: 'index.md'
     - Beginner:
-      - 'Session 1': './Beginner-1/README.md'
+      - 'C Programming Foundations-1': './Beginner-1/README.md'
+      - 'C Programming Foundations-2': './Beginner-2/README.md'
     - Advanced:
       - 'Graph Theory': './Advanced-1/README.md'
 plugins:
