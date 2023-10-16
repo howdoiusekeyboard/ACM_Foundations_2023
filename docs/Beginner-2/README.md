@@ -25,7 +25,6 @@ Welcome to the world of C programming! In this guide, we'll cover essential conc
    - [Nested if-else](#explanation-problem)
 4. [Arrays](#arrays-in-c)
    - [What are Arrays?](#what-are-arrays)
-   - [Problem: Largest Element Finder](#problem-find-the-largest-element)
   5. [Past Year Questions](#Past-Year-Questions)
 
 ## Variables in C
@@ -34,13 +33,13 @@ Welcome to the world of C programming! In this guide, we'll cover essential conc
 
 In programming, variables are containers that store data. They have a type and a name.
 
-```ruby
+```c
 int age;  // Declaration
 age = 21; // Assignment
 ```
 **Note:** The value of a variable can be changed, hence the name variable.
 
-```ruby
+```c
 char ch = 'a';
 ch = 'l';
 ```
@@ -60,7 +59,7 @@ double number;      // error, can't redefine the data type
 In programming, a loop is used to repeat a block of code until the specified condition is met.
 
 ### For Loop
-```ruby
+```c
 for (int i = 0; i < 5; i++) {
     // Code inside the loop
 }
@@ -77,8 +76,9 @@ Write a program to find the factorial of a number.
 
 int main() {
     int number, factorial = 1;
-    printf("Enter a number: ");
-    scanf("%d", &number);
+    
+    printf("Enter a number: ");   //Prints text to console
+    scanf("%d", &number);         //Reads input from console
 
     for (int i = 1; i <= number; i++) {
         factorial *= i;
@@ -94,7 +94,7 @@ int main() {
 
 The syntax of the `while` loop is:
 
-```ruby
+```c
 while (testExpression) {
   // the body of the loop 
 }
@@ -104,7 +104,7 @@ while (testExpression) {
 *Working of While Loop*
 
 ### Problem: Print N numbers
-```ruby
+```c
 #include <stdio.h>
 
 void main() {
@@ -128,7 +128,7 @@ void main() {
 
 The syntax of the `do-while` loop is:
 
-```ruby
+```c
 do {
   // the body of the loop
 }
@@ -140,7 +140,7 @@ while (testExpression);
 *Working of do - while Loop*
 
 ### Problem: Add numbers entered by user
-```ruby
+```c
 #include <stdio.h>
 void main() {
   double number, sum = 0;
@@ -159,7 +159,7 @@ void main() {
 
 The syntax of the `switch...case` loop is:
 
-```ruby
+```c
 switch (expression)
 ​{
     case constant1:
@@ -182,7 +182,7 @@ switch (expression)
 *Working of switch...case Loop*
 
 ### Problem: Simple Calculator
-```ruby
+```c
 #include <stdio.h>
 
 int main() {
@@ -192,7 +192,7 @@ int main() {
     printf("Enter an operator (+, -, *, /): ");
     scanf("%c", &operation);
     printf("Enter two operands: ");
-    scanf("%lf %lf",&n1, &n2);
+    scanf("%lf %lf",&n1, &n2);    //lf reads type "double"
 
     switch(operation)
     {
@@ -226,7 +226,7 @@ Conditional statements help your program make decisions.
 
 ### if-else statement
 
-```ruby
+```c
 if (condition) {
     // Code to execute if the condition is true
 } else {
@@ -259,7 +259,7 @@ void main() {
 Sometimes, a choice has to be made from more than 2 possibilities.
 
 The if...else ladder allows you to check between multiple test expressions and execute different statements.
-```ruby
+```c
 if (test expression1) {
    // statement(s)
 }
@@ -306,7 +306,7 @@ int main() {
 }
 ```
 ### Nested if-else
-```ruby
+```c
 #include <stdio.h>
 int main() {
     int number1, number2;
@@ -334,7 +334,7 @@ int main() {
 Arrays allow you to store multiple values of the same type under one name.
 
 #### Syntax
-```ruby
+```c
 dataType arrayName[arraySize];
 //example
 int numbers[5] = {1, 2, 3, 4, 5};` 
@@ -354,7 +354,7 @@ Suppose you declared an array mark as above. The first element is mark[0], the s
 
  1. ### Write a C Program to input size of the array, and then after passes the user input array to a function which replaces each element with its reverse. Print the array in main before and after the function call.
 
-```ruby
+```c
 #Solution
 #include <stdio.h>
 
@@ -418,7 +418,8 @@ void main() {
 **Output:** {1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3}
 
 
-```ruby
+```c
+#Solution
 #include <stdio.h>
 
 int main() {
