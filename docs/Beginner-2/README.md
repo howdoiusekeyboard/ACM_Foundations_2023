@@ -352,7 +352,7 @@ Suppose you declared an array mark as above. The first element is mark[0], the s
 ## Past Year Questions 🤩🤩🤩
 
 
- 1. ### Write a C Program to input size of the array, and then replace each element of the user input array with its reverse. Print the array.
+ 1. **Write a C Program to input size of the array, and then replace each element of the user input array with its reverse. Print the array.**
 
 ```c
 //Solution
@@ -405,7 +405,7 @@ void main() {
 
  ```
  
-2.  **WAP to sort an array A[] consisting of only 1s, 2s, and 3s. the following task needs to be done**
+2. **WAP to sort an array A[] consisting of only 1s, 2s, and 3s. the following task needs to be done**
 - **The program should sort the given array and put all 1s first, then all 2s and all 3s in last.**
 - **Print the array elements after sorting.**
 
