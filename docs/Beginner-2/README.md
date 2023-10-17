@@ -52,6 +52,22 @@ number = 5.5;       // error, can't assign float to int
 double number;      // error, can't redefine the data type 
 ```
 
+### Using variables
+
+Once a variable has been declared and initialized, you can use it in your program to store and retrieve data. For example, the following code prints the value of the variable `age` to the console:
+
+```c
+#include <stdio.h>
+
+int main() {
+  int age = 25;
+
+  printf("My age is %d\n", age);
+
+  return 0;
+}
+```
+
 ## Loops in C
 
 ### What are Loops?
