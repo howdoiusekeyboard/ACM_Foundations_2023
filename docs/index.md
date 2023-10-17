@@ -24,6 +24,8 @@ The Beginner sessions will be taught in *C* and prepare the audience to begin th
 | Session | Topic |
 | :-----: |:-------------:|
 | 1 | [**Graph Theory**](./Advanced-1) |
+| 2 | [**Linked Lists, Stacks and Queues**](./Advanced-2) |
+
 
 ## Instructors
 
