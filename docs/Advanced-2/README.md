@@ -337,7 +337,7 @@ Find out the state of the asteroids after all collisions. If two asteroids meet,
 
 Collision will only take place when the upcoming asteroid will be moving toward left and the prev asteroid is moving toward right otherwise collsion will not take place because they will not meet.
 
-<img title="" src="file:///C:/Users/Ayushi/AppData/Roaming/marktext/images/2023-10-17-21-23-09-image.png" alt="" data-align="center" width="292">
+<img title="" src="./Asteroid collision possibilities.png" alt="" data-align="center" width="292">
 
 Hence we need to first check the condition wheter they are colliding or not. If the collision happens, then:
 
@@ -392,7 +392,7 @@ A queue is a linear data structure in which insertions are done at one end (rear
 
 A Queue is like a line waiting to purchase tickets, where the first person in line is the first person served. (i.e. First come first serve).
 
-![](2023-10-15-23-44-59-image.png)
+![](.\Queue.png)
 
 The queue has two pointers, **Front** and **Rear**. The front points towards the first element while the rear points towards the last element of the queue.
 
@@ -420,7 +420,7 @@ class Node:
         self.next = None
 ```
 
-<img title="" src="2023-10-16-19-51-40-image.png" alt="" data-align="center" width="202">
+<img title="" src="./Node.png" alt="" data-align="center" width="202">
 
 Then we define a class `Queue`. Its constructor will have 2 pointer: **Front and Rear**. Initially, since the queue is empty, Both of them point at `None`
 
@@ -433,7 +433,7 @@ class Queue:
 
 ```
 
-<img title="" src="2023-10-16-20-28-45-image.png" alt="" width="207" data-align="center">
+<img title="" src="./Empty Linked List- queue implementation (2).png" alt="" width="207" data-align="center">
 
 **Defining EnQueue(item)**
 
@@ -448,13 +448,13 @@ def EnQueue(self, item):
         self.rear = temp
 ```
 
-Case (a): When the Queue is empty initially
+Case (a): When the Queue is initially empty
 
-<img title="" src="2023-10-16-20-21-03-image.png" alt="" data-align="left" width="222">
+<img title="" src="./Case(1)-first entry.png" alt="" data-align="left" width="222">
 
 Case (b): When the Queue has some elements
 
-<img src="2023-10-16-20-24-49-image.png" title="" alt="" data-align="right">
+<img src="./enqueue.png" title="" alt="" data-align="right">
 
 **Defining DeQueue():**
 
@@ -470,7 +470,7 @@ Case (b): When the Queue has some elements
             self.rear = None
 ```
 
-![](2023-10-16-20-41-56-image.png)
+![](./dequeue.png)
 
 
 
