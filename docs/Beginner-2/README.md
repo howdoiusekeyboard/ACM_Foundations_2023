@@ -7,6 +7,7 @@ Welcome to the world of C programming! In this guide, we'll cover essential conc
 ## Table of Contents
 1. [Variables](#variables-in-c)
    - [What are Variables?](#what-are-variables)
+   - [Using Variables](#using-variables)
 2. [Loops](#loops-in-c)
    - [What are Loops?](#what-are-loops)
    - [For Loop](#for-loop-explanation)
